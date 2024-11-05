@@ -1,0 +1,173 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "canadacentral"
+    },
+    "osDiskType": {
+      "value": "StandardSSD_LRS"
+    },
+    "virtualNetworkId": {
+      "value": "/subscriptions/7e5b65cd-d857-44e9-a7c8-f425a082239f/resourceGroups/Devoir_1/providers/Microsoft.Network/virtualNetworks/vnet-canadacentral"
+    },
+    "virtualNetworkName": {
+      "value": "vnet-canadacentral"
+    },
+    "networkSecurityGroups": {
+      "value": [
+        {
+          "name": "basicNsgvnet-canadacentral-nic01",
+          "id": "/subscriptions/7e5b65cd-d857-44e9-a7c8-f425a082239f/resourceGroups/Devoir_1/providers/Microsoft.Network/networkSecurityGroups/basicNsgvnet-canadacentral-nic01",
+          "rules": [
+            {
+              "name": "Tcp",
+              "properties": {
+                "priority": 300,
+                "protocol": "Tcp",
+                "access": "Allow",
+                "direction": "Inbound",
+                "sourceAddressPrefix": "*",
+                "sourcePortRange": "*",
+                "destinationAddressPrefix": "*",
+                "destinationPortRange": "80"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "networkInterfaceConfigurations": {
+      "value": [
+        {
+          "name": "vnet-canadacentral-nic01",
+          "primary": true,
+          "subnetId": "/subscriptions/7e5b65cd-d857-44e9-a7c8-f425a082239f/resourceGroups/Devoir_1/providers/Microsoft.Network/virtualNetworks/vnet-canadacentral/subnets/snet-canadacentral-1",
+          "applicationGatewayBackendAddressPools": [],
+          "loadBalancerBackendAddressPools": [
+            {
+              "id": "[resourceId('Microsoft.Network/loadBalancers/backendAddressPools', parameters('loadBalancerName'), parameters('backendPoolName'))]"
+            }
+          ],
+          "applicationSecurityGroups": [],
+          "loadBalancerInboundNatPools": [],
+          "enableAcceleratedNetworking": false,
+          "nsgName": "basicNsgvnet-canadacentral-nic01",
+          "nsgId": "/subscriptions/7e5b65cd-d857-44e9-a7c8-f425a082239f/resourceGroups/Devoir_1/providers/Microsoft.Network/networkSecurityGroups/basicNsgvnet-canadacentral-nic01",
+          "pipName": "publicIp-vnet-canadacentral-nic01"
+        }
+      ]
+    },
+    "backendPoolName": {
+      "value": "bepool"
+    },
+    "loadBalancerName": {
+      "value": "LB1"
+    },
+    "loadbalancingRuleFrontEndPort": {
+      "value": 80
+    },
+    "loadbalancingRuleBackendEndPort": {
+      "value": 80
+    },
+    "loadbalancingRuleProtocol": {
+      "value": "Tcp"
+    },
+    "InboundNATRuleFrontEndPortRangeStart": {
+      "value": 50000
+    },
+    "vmName": {
+      "value": "vmss1"
+    },
+    "virtualMachineScaleSetName": {
+      "value": "vmss1"
+    },
+    "instanceCount": {
+      "value": "2"
+    },
+    "instanceSize": {
+      "value": "Standard_D2s_v3"
+    },
+    "platformFaultDomainCount": {
+      "value": "1"
+    },
+    "scaleInPolicy": {
+      "value": {
+        "rules": [
+          "Default"
+        ],
+        "forceDeletion": false
+      }
+    },
+    "upgradePolicy": {
+      "value": "Manual"
+    },
+    "hibernationEnabled": {
+      "value": false
+    },
+    "adminUsername": {
+      "value": "emed"
+    },
+    "adminPassword": {
+      "value": null
+    },
+    "customData": {
+      "value": null
+    },
+    "securityType": {
+      "value": "TrustedLaunch"
+    },
+    "secureBoot": {
+      "value": true
+    },
+    "vTPM": {
+      "value": true
+    },
+    "vnetLocation": {
+      "value": "canadacentral"
+    },
+    "vnetExtendedLocation": {
+      "value": {}
+    },
+    "vnetVirtualNetworkName": {
+      "value": "vnet-canadacentral"
+    },
+    "vnetResourceGroupName": {
+      "value": "Devoir_1"
+    },
+    "vnetDeploymentName": {
+      "value": "network-interface-associated-virtual-network-20241105152415"
+    },
+    "vnetNatGatewaysWithNewPublicIpAddress": {
+      "value": []
+    },
+    "vnetNatGatewaysWithoutNewPublicIpAddress": {
+      "value": []
+    },
+    "vnetNatGatewayPublicIpAddressesNewNames": {
+      "value": []
+    },
+    "vnetNetworkSecurityGroupsNew": {
+      "value": []
+    },
+    "vnetProperties": {
+      "value": {
+        "subnets": [
+          {
+            "name": "snet-canadacentral-1",
+            "properties": {
+              "addressPrefixes": [
+                "172.16.0.0/24"
+              ]
+            }
+          }
+        ],
+        "addressSpace": {
+          "addressPrefixes": [
+            "172.16.0.0/16"
+          ]
+        }
+      }
+    }
+  }
+}
