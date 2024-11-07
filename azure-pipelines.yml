@@ -16,7 +16,7 @@ steps:
       targetType: 'inline'
       script:
         # write your powershell command here.
-        $CloudContent= Get-Content -Path $(Build.SourcesDirectory)\Devoir1_\Devoir1_\Cloud-Init.txt -Raw
+        $CloudContent= Get-Content -Path $(Build.SourcesDirectory)\Devoir1_\Cloud-Init.txt -Raw
 
         write-Host $CloudContent
 
