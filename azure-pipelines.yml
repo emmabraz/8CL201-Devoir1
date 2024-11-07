@@ -17,9 +17,13 @@ steps:
       script:
         # write your powershell command here.
         $CloudContent= Get-Content -Path $(Build.SourcesDirectory)\Devoir1_\Devoir1_\Cloud-Init.txt -Raw
+
         write-Host $CloudContent
+
         $encodedContent = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($CloudContent))
+        
         write-Host $encodedContent
+        
         write-Host "##vso[task.setvariable variable=CloudInitContent;]$encodedContent"
   - script:
       echo $(CloudInitContent)
