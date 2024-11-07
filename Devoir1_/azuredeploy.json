@@ -69,7 +69,7 @@
       "type": "secureString"
     },
     "customData": {
-      "type": "secureString"
+      "type": "string"
     },
     "securityType": {
       "type": "string"
@@ -301,7 +301,7 @@
         "enabled": true,
         "profiles": [
           {
-            "name": "Condition par défaut",
+            "name": "Condition par dï¿½faut",
             "capacity": {
               "default": 2,
               "minimum": 2,
