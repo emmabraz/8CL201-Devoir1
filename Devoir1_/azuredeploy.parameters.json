@@ -14,7 +14,7 @@
     "virtualNetworkName": {
       "value": "vnet-canadacentral"
     },
-    "networkSecurityGroups": {
+    "networkSecurityGroups": { //Regle de securite pour ouvrir les flux sur le port 80
       "value": [
         {
           "name": "basicNsgvnet-canadacentral-nic01",
@@ -37,7 +37,7 @@
         }
       ]
     },
-    "networkInterfaceConfigurations": {
+    "networkInterfaceConfigurations": { // Configuration du reseau public du loadbalancer
       "value": [
         {
           "name": "vnet-canadacentral-nic01",
@@ -57,7 +57,7 @@
           "pipName": "publicIp-vnet-canadacentral-nic01"
         }
       ]
-    },
+    }, // Creation du loadbalancer
     "backendPoolName": {
       "value": "bepool"
     },
@@ -76,7 +76,7 @@
     "InboundNATRuleFrontEndPortRangeStart": {
       "value": 50000
     },
-    "vmName": {
+    "vmName": { // Creation du groupe de machines virtuelles avec mise a l'echelle
       "value": "vmss1"
     },
     "virtualMachineScaleSetName": {
@@ -105,7 +105,7 @@
     "hibernationEnabled": {
       "value": false
     },
-    "adminUsername": {
+    "adminUsername": { // Compte local vm
       "value": "emed"
     },
     "adminPassword": {
@@ -129,10 +129,10 @@
     "vnetExtendedLocation": {
       "value": {}
     },
-    "vnetVirtualNetworkName": {
+    "vnetVirtualNetworkName": { // Reseau de la vm
       "value": "vnet-canadacentral"
     },
-    "vnetResourceGroupName": {
+    "vnetResourceGroupName": {  // Groupe de ressource
       "value": "Devoir_1"
     },
     "vnetDeploymentName": {
@@ -154,7 +154,7 @@
       "value": {
         "subnets": [
           {
-            "name": "snet-canadacentral-1",
+            "name": "snet-canadacentral-1", // Reseau prive de la vm
             "properties": {
               "addressPrefixes": [
                 "172.16.0.0/24"

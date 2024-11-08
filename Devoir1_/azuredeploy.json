@@ -1,7 +1,7 @@
 {
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
-  "parameters": {
+  "parameters": { // Voir les commentaires dans le fichier parameters
     "location": {
       "type": "string"
     },
@@ -347,7 +347,7 @@
             ]
           },
           {
-            "name": "Cond1",
+            "name": "Cond1", // Condition de mise a l'echelle
             "capacity": {
               "default": 2,
               "minimum": 2,
@@ -513,7 +513,7 @@
       }
     },
     {
-      "type": "Microsoft.Resources/deployments",
+      "type": "Microsoft.Resources/deployments", /
       "apiVersion": "2021-04-01",
       "name": "[parameters('vnetDeploymentName')]",
       "resourceGroup": "[parameters('vnetResourceGroupName')]",
