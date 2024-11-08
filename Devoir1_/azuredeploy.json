@@ -1,7 +1,10 @@
 {
+  // Définition du schéma et de la version du modèle
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
-  "parameters": { // Voir les commentaires dans le fichier parameters
+  // Paramètres utilisés pour la configuration de l'infrastructure
+  "parameters": {
+    // Paramètres pour les configurations réseau, VM, et Load Balancer
     "location": {
       "type": "string"
     },
@@ -62,6 +65,7 @@
     "hibernationEnabled": {
       "type": "bool"
     },
+    // Autres paramètres comme les informations d'authentification sur la vm
     "adminUsername": {
       "type": "string"
     },
@@ -71,6 +75,7 @@
     "customData": {
       "type": "string"
     },
+    // Paramètres de sécurité
     "securityType": {
       "type": "string"
     },
@@ -80,6 +85,7 @@
     "vTPM": {
       "type": "bool"
     },
+    // Paramètres pour le réseau virtuel
     "vnetLocation": {
       "type": "string",
       "metadata": {
@@ -175,8 +181,10 @@
     "vnetPublicIpAddressesTags": "[if(contains(parameters('vnetTagsByResource'), 'Microsoft.Network/publicIpAddresses'), parameters('vnetTagsByResource')['Microsoft.Network/publicIpAddresses'], json('{}'))]",
     "vnetNatGatewayTags": "[if(contains(parameters('vnetTagsByResource'), 'Microsoft.Network/natGateways'), parameters('vnetTagsByResource')['Microsoft.Network/natGateways'], json('{}'))]"
   },
+  // Ressources Azure à déployer, comme les groupes de sécurité réseau et les machines virtuelles
   "resources": [
     {
+      // Déploiement des groupes de sécurité réseau
       "name": "[parameters('networkSecurityGroups')[copyIndex()].name]",
       "type": "Microsoft.Network/networkSecurityGroups",
       "apiVersion": "2020-05-01",
@@ -190,6 +198,7 @@
       }
     },
     {
+      // Configuration et déploiement du Load Balancer
       "name": "[concat(parameters('loadBalancerName'), '-publicip')]",
       "type": "Microsoft.Network/publicIpAddresses",
       "apiVersion": "2020-08-01",
@@ -417,6 +426,7 @@
       }
     },
     {
+      // Déploiement du Virtual Machine Scale Set avec paramètres de sécurité et configuration réseau
       "name": "[parameters('virtualMachineScaleSetName')]",
       "type": "Microsoft.Compute/virtualMachineScaleSets",
       "apiVersion": "[variables('virtualMachineScaleSetApiVersion')]",
@@ -513,7 +523,7 @@
       }
     },
     {
-      "type": "Microsoft.Resources/deployments", 
+      "type": "Microsoft.Resources/deployments",
       "apiVersion": "2021-04-01",
       "name": "[parameters('vnetDeploymentName')]",
       "resourceGroup": "[parameters('vnetResourceGroupName')]",
@@ -606,6 +616,7 @@
       }
     }
   ],
+  // Sorties de déploiement 
   "outputs": {
     "adminUsername": {
       "type": "string",
