@@ -1,0 +1,60 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool: "default"
+variables:
+- name: CloudInitContent
+
+steps:
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script:
+        # write your powershell command here.
+        $CloudContent= Get-Content -Path $(Build.SourcesDirectory)\Devoir1_\Cloud-Init.txt -Raw
+
+        write-Host $CloudContent
+
+        $encodedContent = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($CloudContent))
+        
+        write-Host $encodedContent
+        
+        write-Host "##vso[task.setvariable variable=CloudInitContent;]$encodedContent"
+  - script:
+      echo $(CloudInitContent)
+
+  - task: AzureKeyVault@2
+    inputs:
+      azureSubscription: 'Azure subscription 1(7e5b65cd-d857-44e9-a7c8-f425a082239f)'
+      KeyVaultName: 'CoffreDeClesDevoir1'
+      SecretsFilter: '*'
+      RunAsPreJob: true
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Write your PowerShell commands here.
+        
+        Write-Host "Hello World"
+        
+        Write-Host "password = " $(emed)
+
+  - task: AzureResourceManagerTemplateDeployment@3
+    inputs:
+      deploymentScope: 'Resource Group'
+      azureResourceManagerConnection: 'Azure subscription 1(7e5b65cd-d857-44e9-a7c8-f425a082239f)'
+      subscriptionId: '7e5b65cd-d857-44e9-a7c8-f425a082239f'
+      action: 'Create Or Update Resource Group'
+      resourceGroupName: 'Devoir_1'
+      location: 'Canada East'
+      templateLocation: 'Linked artifact'
+      csmFile: '$(Build.SourcesDirectory)\Devoir1_\azuredeploy.json'
+      csmParametersFile: '$(Build.SourcesDirectory)\Devoir1_\azuredeploy.parameters.json'
+      overrideParameters: '-customData $(CloudInitContent) -adminPassword $(emed)'
+      deploymentMode: 'Validation'
