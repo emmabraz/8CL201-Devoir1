@@ -44,3 +44,17 @@ steps:
         Write-Host "Hello World"
         
         Write-Host "password = " $(emed)
+
+  - task: AzureResourceManagerTemplateDeployment@3
+    inputs:
+      deploymentScope: 'Resource Group'
+      azureResourceManagerConnection: 'Azure subscription 1(7e5b65cd-d857-44e9-a7c8-f425a082239f)'
+      subscriptionId: '7e5b65cd-d857-44e9-a7c8-f425a082239f'
+      action: 'Create Or Update Resource Group'
+      resourceGroupName: 'Devoir_1'
+      location: 'Canada East'
+      templateLocation: 'Linked artifact'
+      csmFile: 'azuredeploy.json'
+      csmParametersFile: 'azuredeploy.parameters.json'
+      overrideParameters: '-customData $(CloudInitContent) -adminPassword $(emed)'
+      deploymentMode: 'Validation'
