@@ -3,6 +3,7 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+# Pipeline de validation
 trigger:
 - master
 
@@ -15,7 +16,7 @@ steps:
     inputs:
       targetType: 'inline'
       script:
-        #write your powershell command here.
+        # Recuperation dans le fichier Cloud Init de la partie customData pour deployer les services webs sur les vms
         $CloudContent= Get-Content -Path $(Build.SourcesDirectory)\Devoir1_\Cloud-Init.txt -Raw
 
         write-Host $CloudContent
@@ -27,7 +28,7 @@ steps:
         write-Host "##vso[task.setvariable variable=CloudInitContent;]$encodedContent"
   - script:
       echo $(CloudInitContent)
-
+       # Extraction du mot de passe a travers le keyvault
   - task: AzureKeyVault@2
     inputs:
       azureSubscription: 'Azure subscription 1(7e5b65cd-d857-44e9-a7c8-f425a082239f)'
@@ -39,12 +40,12 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        # Write your PowerShell commands here.
+        # Verification de la recuperation du mot de passe
         
         Write-Host "Hello World"
         
         Write-Host "password = " $(emed)
-
+# Déploiement ARM pour valider les ressources Azure (VM, LB, reseau...)
   - task: AzureResourceManagerTemplateDeployment@3
     inputs:
       deploymentScope: 'Resource Group'
