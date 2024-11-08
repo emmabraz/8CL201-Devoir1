@@ -94,7 +94,7 @@
     "scaleInPolicy": {
       "value": {
         "rules": [
-          "Default"
+          "Cond1"
         ],
         "forceDeletion": false
       }
