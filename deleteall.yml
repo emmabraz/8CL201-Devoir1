@@ -1,0 +1,22 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool: "default"
+
+variables:
+- name: SubscriptionID
+  value: '7e5b65cd-d857-44e9-a7c8-f425a082239f'
+
+steps:
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'spn-azure-devops'
+    scriptType: 'ps'
+    scriptLocation: 'scriptPath'
+    scriptPath: '$(Build.SourcesDirectory)\Devoir1_\deleteallazure.ps1'
